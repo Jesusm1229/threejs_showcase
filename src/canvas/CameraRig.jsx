@@ -5,14 +5,12 @@ import { useSnapshot } from 'valtio';
 
 import state from '../store';
 
-
 const CameraRig = ({ children }) => {
-    const group = useRef()
-
+    const group = useRef();
     const snap = useSnapshot(state);
-
     //Setting multiple section
     //useFrame render in every frame delta is the difference between the last frame and the current frame
+
     useFrame((state, delta) => {
         const isBreakpoint = window.innerWidth <= 1260;
         const isMobile = window.innerWidth <= 600;
@@ -22,7 +20,7 @@ const CameraRig = ({ children }) => {
         if (snap.intro) {//Home page
             if (isBreakpoint) targetPosition = [0, 0, 2];
             if (isMobile) targetPosition = [0, 0.2, 2.5];
-        } else { //Customizer page
+        } else {//Customizer page
             if (isMobile) targetPosition = [0, 0, 2.5]
             else targetPosition = [0, 0, 2];
         }
@@ -40,11 +38,7 @@ const CameraRig = ({ children }) => {
     })
 
 
-    return (
-        <group ref={group}>
-            {children}
-        </group>
-    )
+    return <group ref={group}>{children}</group>
 }
 
 export default CameraRig

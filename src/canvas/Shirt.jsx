@@ -8,17 +8,15 @@ import state from '../store';
 
 const Shirt = () => {
     const snap = useSnapshot(state);
-
     const { nodes, materials } = useGLTF('/shirt_baked.glb');
 
     const logoTexture = useTexture(snap.logoDecal);
     const fullTexture = useTexture(snap.fullDecal);
 
-    //useFrame to change color smoothly
     useFrame((state, delta) => easing.dampC(materials.lambert1.color, snap.color, 0.25, delta));
 
-    //is necessary to provide a key. React would render when render
     const stateString = JSON.stringify(snap);
+
     return (
         <group key={stateString}>
             <mesh
@@ -44,8 +42,8 @@ const Shirt = () => {
                         scale={0.15}
                         map={logoTexture}
                         map-anisotropy={16}
-                        depthTest={false}//Render over object
-                        depthWrite={true}//
+                        depthTest={false}
+                        depthWrite={true}
                     />
                 )}
             </mesh>
